@@ -9,10 +9,15 @@ def register(films_dict):
     duration  = input("| Duração (em min): ")
 
     genres = genre.split(", ")
+    directors = director.split(", ")
 
     movie = {
-        "title": title,
-        "genre": genre,
+        "title":     title,
+        "genre":     genres,
+        "director":  directors,
+        "release":   release,
+        "class_ind": class_ind,
+        "duration":  duration
         }
 
     films_dict.append(movie)

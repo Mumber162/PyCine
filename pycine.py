@@ -5,6 +5,7 @@ import movies
 
 #== CRUDs ===
 def filmes():
+    # Lista de Filmes
     films_dict = []
 
     print("\n===============================")
@@ -45,6 +46,9 @@ def filmes():
 
 
 def clientes():
+    # Lista de Clientes
+    clients_dict = []
+
     print("\n=================================")
     print("== CLIENTES em DESENVOLVIMENTO ==")
     print(".................................")
@@ -63,6 +67,9 @@ def clientes():
 
 
 def ingressos():
+    # Lista de Ingressos
+    tickets_dict = []
+
     print("\n==================================")
     print("== INGRESSOS em DESENVOLVIMENTO ==")
     print("..................................")
@@ -83,6 +90,9 @@ def ingressos():
     """
 
 def usuarios():
+    # Lista de Usuários
+    users_dict = []
+
     print("\n=================================")
     print("== USUÁRIOS em DESENVOLVIMENTO ==")
     print(".................................")
