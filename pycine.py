@@ -1,5 +1,7 @@
 #--------------------------------
 import movies
+import clients
+import users
 #================================
 
 
@@ -76,15 +78,15 @@ def clientes():
         opt = int(input("\t=> "))
 
         if opt==1:
-            movies.register(clients_dict)
+            clients.register(clients_dict)
         elif opt==2:
-            movies.search(clients_dict)
+            clients.search(clients_dict)
         elif opt==3:
-            movies.update_film(clients_dict)
+            clients.update_client(clients_dict)
         elif opt==4:
-            movies.remove_film(clients_dict)
+            clients.remove_client(clients_dict)
         elif opt==5:
-            movies.see_all(clients_dict)
+            clients.see_all(clients_dict)
         elif opt==0:
             print("\n")        
             print("=== OBRIGADO PELA VISITA nos CLIENTES! ===")
@@ -114,16 +116,41 @@ def usuarios():
     # Lista de Usuários
     users_dict = []
 
-    print("\n=================================")
-    print("== USUÁRIOS em DESENVOLVIMENTO ==")
-    print(".................................")
-    print("[1] - Cadastrar                  ")
-    print("[2] - Buscar                     ")
-    print("[3] - Atualizar                  ")
-    print("[4] - Remover                    ")
-    print("[5] - VER Usuários               ")
-    print("(0) - Sair                       ")
-    print("---------------------------------")
+    status = True
+    while status:
+
+        print("\n=================================")
+        print("== USUÁRIOS em DESENVOLVIMENTO ==")
+        print(".................................")
+        print("[1] - Cadastrar                  ")
+        print("[2] - Buscar                     ")
+        print("[3] - Atualizar                  ")
+        print("[4] - Remover                    ")
+        print("[5] - VER Usuários               ")
+        print("(0) - Sair                       ")
+        print("---------------------------------")
+
+        opt = int(input("\t=> "))
+
+        if opt==1:
+            users.register(users_dict)
+        elif opt==2:
+            users.search(users_dict)
+        elif opt==3:
+            users.update_user(users_dict)
+        elif opt==4:
+            users.remove_user(users_dict)
+        elif opt==5:
+            users.see_all(users_dict)
+        elif opt==0:
+            print("\n")        
+            print("=== OBRIGADO PELA VISITA nos USUÁRIOS! ===")
+            print("\n")
+            status = False
+        else:
+            print("\t|    INVALIDO   |")
+            print("\t| Tente de novo |")
+
     """
     Admin, funcionario
     - Nome, cargo
@@ -133,7 +160,11 @@ def relatorios():
     print("\n== Aqui está o relatório ==")
     print("==== De Todo o CINEMA =====")
     print("...........................")
+    print()
+    
 
+#
+#
 ##########################
 #=- PROGRAMA PRINCIPAL -=#
 ##########################
