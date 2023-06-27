@@ -8,36 +8,39 @@ def filmes():
     # Lista de Filmes
     films_dict = []
 
-    print("\n===============================")
-    print("== FILMES em DESENVOLVIMENTO ==")
-    print("...............................")
-    print("[1] - Cadastrar                ")
-    print("[2] - Buscar                   ")
-    print("[3] - Atualizar                ")
-    print("[4] - Remover                  ")
-    print("[5] - VER Filmes               ")
-    print("(0) - Sair                     ")
-    print("-------------------------------")
-
-    opt = int(input("=> "))
-
     status = True
     while status:
+        print("\n===============================")
+        print("== FILMES em DESENVOLVIMENTO ==")
+        print("...............................")
+        print("[1] - Cadastrar                ")
+        print("[2] - Buscar                   ")
+        print("[3] - Atualizar                ")
+        print("[4] - Remover                  ")
+        print("[5] - VER Filmes               ")
+        print("(0) - Sair                     ")
+        print("-------------------------------")
+
+        opt = int(input("\t=> "))
+
         if opt==1:
             movies.register(films_dict)
-        if opt==2:
-            movies.search()
-        if opt==3:
-            movies.update_film()
-        if opt==4:
-            movies.remove_film()
-        if opt==0:
-            print("OBRIGADO PELA VISITA nos FILMES!")
+        elif opt==2:
+            movies.search(films_dict)
+        elif opt==3:
+            movies.update_film(films_dict)
+        elif opt==4:
+            movies.remove_film(films_dict)
+        elif opt==5:
+            movies.see_all(films_dict)
+        elif opt==0:
+            print("\n")        
+            print("=== OBRIGADO PELA VISITA nos FILMES! ===")
+            print("\n")
             status = False
-
         else:
-            print("|    INVALIDO   |")
-            print("| Tente de novo |")
+            print("\t|    INVALIDO   |")
+            print("\t| Tente de novo |")
 
     """
     O filme vai ter como atributos:
@@ -46,40 +49,55 @@ def filmes():
 
 
 def clientes():
-    # Lista de Clientes
-    clients_dict = []
-
-    print("\n=================================")
-    print("== CLIENTES em DESENVOLVIMENTO ==")
-    print(".................................")
-    print("[1] - Cadastrar                  ")
-    print("[2] - Buscar                     ")
-    print("[3] - Atualizar                  ")
-    print("[4] - Remover                    ")
-    print("[5] - VER Clientes               ")
-    print("(0) - Sair                       ")
-    print("---------------------------------")
-
     """
     Os clientes vão ter como atributos:
     - Nome, idade
+    E os ingressos serão gerados a partir deles
     """
+
+    # Lista de Clientes
+    clients_dict = []
+
+    status = True
+    while status:
+
+        print("\n=================================")
+        print("== CLIENTES em DESENVOLVIMENTO ==")
+        print(".................................")
+        print("[1] - Cadastrar                  ")
+        print("[2] - Buscar                     ")
+        print("[3] - Atualizar                  ")
+        print("[4] - Remover                    ")
+        print("[5] - VER Clientes               ")
+        print("(0) - Sair                       ")
+        print("---------------------------------")
+
+
+        opt = int(input("\t=> "))
+
+        if opt==1:
+            movies.register(clients_dict)
+        elif opt==2:
+            movies.search(clients_dict)
+        elif opt==3:
+            movies.update_film(clients_dict)
+        elif opt==4:
+            movies.remove_film(clients_dict)
+        elif opt==5:
+            movies.see_all(clients_dict)
+        elif opt==0:
+            print("\n")        
+            print("=== OBRIGADO PELA VISITA nos CLIENTES! ===")
+            print("\n")
+            status = False
+        else:
+            print("\t|    INVALIDO   |")
+            print("\t| Tente de novo |")
 
 
 def ingressos():
     # Lista de Ingressos
     tickets_dict = []
-
-    print("\n==================================")
-    print("== INGRESSOS em DESENVOLVIMENTO ==")
-    print("..................................")
-    print("[1] - Cadastrar                   ")
-    print("[2] - Buscar                      ")
-    print("[3] - Atualizar                   ")
-    print("[4] - Remover                     ")
-    print("[5] - VER Ingressos               ")
-    print("(0) - Sair                        ")
-    print("----------------------------------")
 
     """
     Acredito que terá:
@@ -87,6 +105,9 @@ def ingressos():
     - nome do cliente que adquiriu o ingresso
     - data e hora da sseão
     - poltrona
+
+    Eles não possuem menu, pois são acessados por clientes, como se fosse
+    uma chave estrangeira
     """
 
 def usuarios():
@@ -152,9 +173,15 @@ while status:
         relatorios()
 
     elif resp=="0":
-        print("OBRIGADO PELA VISITA!")
+        print("\n")
+        print("=== OBRIGADO PELA VISITA! ===")
+        print("\n")
         status = False
 
     else:
+        print("\n")
+        print("=================")
         print("|    INVALIDO   |")
         print("| Tente de novo |")
+        print("=================")
+        print("\n")
