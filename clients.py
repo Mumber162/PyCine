@@ -1,20 +1,53 @@
-# CADASTRAR
-def register(clients_dict):
-    print("_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ ")
+#--------------------------------
+import tickets
+import movies
+#================================
+
+
+""""""
+# CADASTRAR Clientes
+""""""
+def register(clients_dict, films_dict):
+    print("#####################")
     print("|")
 
     name = input("| NOME: ")
     age  = input("| IDADE: ")
 
+    #------- Parte dos Clientes ============
     client = {
         "name": name,
         "age":  age,
         "ticket_number": (len(clients_dict))
     }
-
     clients_dict.append(client)
 
+    #------- Parte dos INGRESSOS ===========
+    print("\n=================================")
+    print("==        MENU INGRESSOS        ==")
+    print(".................................")
+    print("[1] - Comprar Ingressos          ")
+    print("[2] - Cancelar Ingressos         ")
+    print("(0) - Sair                       ")
+    print("---------------------------------")
+
+
+    ha_filme = movies.tem_filme(films_dict)
+    if (ha_filme):
+        
+        ingresso = {}
+
+
+""""""
+# BUSCAR Clientes
+""""""
+def search(clients):
+    print()
+
+
+""""""
 # VER
+""""""
 def see_all(clients_dict):
     print("___________________________")
     for i in range(len(clients_dict)):

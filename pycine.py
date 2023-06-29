@@ -2,13 +2,17 @@
 import movies
 import clients
 import users
+import webbrowser
 #================================
 
+# Listas
+films_dict = []
+clients_dict = []
+tickets_dict = []
+users_dict = []
 
 #== CRUDs ===
 def filmes():
-    # Lista de Filmes
-    films_dict = []
 
     status = True
     while status:
@@ -63,9 +67,6 @@ def clientes():
         - Ingressos (serão gerados a partir dos clientes)
     """
 
-    # Lista de Clientes
-    clients_dict = []
-
     status = True
     while status:
 
@@ -84,7 +85,7 @@ def clientes():
         opt = int(input("Resposta=> "))
 
         if opt==1:
-            clients.register(clients_dict)
+            clients.register(clients_dict, films_dict)
         elif opt==2:
             clients.search(clients_dict)
         elif opt==3:
@@ -104,8 +105,6 @@ def clientes():
 
 
 def ingressos():
-    # Lista de Ingressos
-    tickets_dict = []
 
     """
     [Atributos]:
@@ -120,8 +119,6 @@ def ingressos():
     """
 
 def usuarios():
-    # Lista de Usuários
-    users_dict = []
 
     status = True
     while status:

@@ -3,7 +3,7 @@ import users
 #================================
 
 def tem_filme(films_dict):
-    if (len(films_dict))==0:
+    if not films_dict:
         print(" _____________________________ ")
         print("|                             |")
         print("|  NÃO HÁ FILMES CADASTRADOS  |")
@@ -17,7 +17,7 @@ def tem_filme(films_dict):
         return True
 
 """"""
-# CADASTRAR
+# CADASTRAR Filmes
 """"""
 def register(films_dict):
     print("\n#######################################")
