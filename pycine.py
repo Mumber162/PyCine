@@ -32,7 +32,7 @@ def filmes():
         elif opt==3:
             movies.update_film(films_dict)
         elif opt==4:
-            movies.remove_film(films_dict)
+            movies.delete_film(films_dict)
         elif opt==5:
             movies.see_all(films_dict)
         elif opt==0:
@@ -90,7 +90,7 @@ def clientes():
         elif opt==3:
             clients.update_client(clients_dict)
         elif opt==4:
-            clients.remove_client(clients_dict)
+            clients.delete_client(clients_dict)
         elif opt==5:
             clients.see_all(clients_dict)
         elif opt==0:
@@ -175,7 +175,7 @@ def usuarios():
                 elif opt==3:
                     users.update_user(users_dict)
                 elif opt==4:
-                    users.remove_user(users_dict)
+                    users.delete_user(users_dict)
                 elif opt==5:
                     users.see_all(users_dict)
                 elif opt==0:

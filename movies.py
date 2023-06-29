@@ -72,65 +72,78 @@ def search(films_dict):
                 print(f"{int(j)+1}: {films_dict[(films_buscados[j])]['title']} ({films_dict[(films_buscados[j])]['release']})")
 
 
-
-
 """"""
 # ATUALIZAR
 """"""
 def update_film(films_dict):
     # if (users.verifica_cargo())
 
-    # Printa as opções de filmes
-    for i in range(len(films_dict)):
-        print(f"{int(i)+1}. {films_dict[i]['title']} ({films_dict[i]['release']})")
+    ha_filme = tem_filme(films_dict)
+    if (ha_filme):
+        # Printa as opções de filmes
+        for i in range(len(films_dict)):
+            print(f"{int(i)+1}. {films_dict[i]['title']} ({films_dict[i]['release']})")
 
-    print("\n##################################")
-    filme = int(input("[Dgt o nº] Qual filme atualizar? "))
+        print("\n##################################")
+        filme = int(input("[Dgt o nº] Qual filme atualizar? "))
 
-    print("\n#######################################")
-    print("|-(se tiver + de 1, separe por vírgula)--")
-    print("|")
+        print("\n#######################################")
+        print("|-(se tiver + de 1, separe por vírgula)--")
+        print("|")
 
-    title     = input("| TÍTULO do filme: ")
-    genre     = input("| GÊNERO(s): ")
-    director  = input("| DIRETOR(es): ")
-    release   = input("| DATA de Lançamento: ")
-    class_ind = input("| Classificação Indicativa: ")
-    duration  = int(input("| Duração (em min): "))
+        title     = input("| TÍTULO do filme: ")
+        genre     = input("| GÊNERO(s): ")
+        director  = input("| DIRETOR(es): ")
+        release   = input("| DATA de Lançamento: ")
+        class_ind = input("| Classificação Indicativa: ")
+        duration  = int(input("| Duração (em min): "))
 
-    genres = genre.split(", ")
-    directors = director.split(", ")
+        genres = genre.split(", ")
+        directors = director.split(", ")
 
-    # Atualização
-    films_dict[filme-1]["title"]     = title
-    films_dict[filme-1]["genre"]     = genres
-    films_dict[filme-1]["director"]  = directors
-    films_dict[filme-1]["release"]   = release
-    films_dict[filme-1]["class_ind"] = class_ind
-    films_dict[filme-1]["duration"]  = duration
+        # Atualização
+        films_dict[filme-1]["title"]     = title
+        films_dict[filme-1]["genre"]     = genres
+        films_dict[filme-1]["director"]  = directors
+        films_dict[filme-1]["release"]   = release
+        films_dict[filme-1]["class_ind"] = class_ind
+        films_dict[filme-1]["duration"]  = duration
 
 
 """"""
 # REMOVER
 """"""
+def delete_film(films_dict):
+    # (verificar se é admin)
+
+    ha_filme = tem_filme(films_dict)
+    if (ha_filme):
+        # Printa as opções de filmes
+        print("\n##############################")
+        print("Qual filme quer deletar:")
+        print("##############################\n")
+        for i in range(len(films_dict)):
+            print(f"{int(i)+1}. {films_dict[i]['title']} ({films_dict[i]['release']})")
+        print("\n==============================")
+
+        option = (int(input("-> ")))-1  
+        del films_dict[option]
+
+        print("= Filme Deletado com Sucesso!")
+        input("Tecle ENTER para continuar...\n\n")
 
 
 """"""
 # VER
 """"""
 def see_all(films_dict):
-    if (len(films_dict))==0:
-        print(" _____________________________ ")
-        print("|                             |")
-        print("|  NÃO HÁ FILMES CADASTRADOS  |")
-        print("|                             |")
-        print(" =---------------------------= ")
 
-    else:
+    ha_filme = tem_filme(films_dict)
+    if (ha_filme):
         for film in (films_dict):
-            print("\n#####=== - • FILME • - ===######")
+            print("\n########## • FILME • ##########")
             print()
-            print("TÍTULO: ",              film["title"])
+            print("TÍTULO: ", film["title"])
 
             print("GÊNERO(s): \n•", end="")
             for gnr in film["genre"]:
@@ -148,4 +161,5 @@ def see_all(films_dict):
             minutos = (film["duration"])%60
             print(f"DURAÇÃO: {hora}h {minutos}min")
 
-            print("- - - - - =-= - - - =-= - - - - -")
+        input("Tecle ENTER para continuar...\n\n")
+    
