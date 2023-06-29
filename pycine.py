@@ -13,7 +13,7 @@ def filmes():
     status = True
     while status:
         print("\n===============================")
-        print("== FILMES em DESENVOLVIMENTO ==")
+        print("==        MENU FILMES        ==")
         print("...............................")
         print("[1] - Cadastrar                ")
         print("[2] - Buscar                   ")
@@ -45,16 +45,22 @@ def filmes():
             print("\t| Tente de novo |")
 
     """
-    O filme vai ter como atributos:
-    - Nome, gênero(s), diretor(es), ano de lançamento, classif. indicativa, duração
+    [Atributos]:
+        - Nome,
+        - gênero(s),
+        - diretor(es),
+        - ano de lançamento,
+        - classif. indicativa,
+        - duração (min)
     """
 
 
 def clientes():
+
     """
-    Os clientes vão ter como atributos:
-    - Nome, idade
-    E os ingressos serão gerados a partir deles
+    [Atributos]:
+        - Nome, idade (pra ver se pode assistir)
+        - Ingressos (serão gerados a partir dos clientes)
     """
 
     # Lista de Clientes
@@ -102,14 +108,15 @@ def ingressos():
     tickets_dict = []
 
     """
-    Acredito que terá:
-    - numero do ingresso (equivalente a quantidade de poltronas)
-    - nome do cliente que adquiriu o ingresso
-    - data e hora da sseão
-    - poltrona
+    [Atributos]:
+        - Nº do ingresso (equivalente a quantidade de poltronas)
+        - nome do cliente que adquiriu o ingresso
+        - data e hora da sessão
+        - filme
+        - "poltrona (?)"
 
-    Eles não possuem menu, pois são acessados por clientes, como se fosse
-    uma chave estrangeira
+        Eles não possuem menu, pois são acessados por clientes, como se fosse
+        uma chave estrangeira
     """
 
 def usuarios():
@@ -119,41 +126,81 @@ def usuarios():
     status = True
     while status:
 
-        print("\n=================================")
-        print("== USUÁRIOS em DESENVOLVIMENTO ==")
-        print(".................................")
-        print("[1] - Cadastrar                  ")
-        print("[2] - Buscar                     ")
-        print("[3] - Atualizar                  ")
-        print("[4] - Remover                    ")
-        print("[5] - VER Usuários               ")
-        print("(0) - Sair                       ")
-        print("---------------------------------")
+        # Se não tiver nenhum usuário cadastrado
+        if (len(users_dict)==0):
+            print("\n=================================")
+            print("==        MENU USUÁRIOS        ==")
+            print(".................................")
+            print("[1] - Cadastrar                  ")
+            print("(0) - Sair                       ")
+            print("---------------------------------")
 
-        opt = int(input("\t=> "))
+            opt = int(input("\t=> "))
 
-        if opt==1:
-            users.register(users_dict)
-        elif opt==2:
-            users.search(users_dict)
-        elif opt==3:
-            users.update_user(users_dict)
-        elif opt==4:
-            users.remove_user(users_dict)
-        elif opt==5:
-            users.see_all(users_dict)
-        elif opt==0:
-            print("\n")        
-            print("=== OBRIGADO PELA VISITA nos USUÁRIOS! ===")
-            print("\n")
-            status = False
+            if opt==1:
+                users.register(users_dict)
+            elif opt==0:
+                print("\n")        
+                print("=== OBRIGADO PELA VISITA nos USUÁRIOS! ===")
+                print("\n")
+                status = False
+            else:
+                print("\t|    INVALIDO   |")
+                print("\t| Tente de novo |")
+
+
+        # Se tiver algum usuário cadastrado
         else:
-            print("\t|    INVALIDO   |")
-            print("\t| Tente de novo |")
+            cargo = users.verifica_admin()
+
+            # Se for [ADMIN]
+            if (cargo):
+                print("\n=================================")
+                print("==        MENU USUÁRIOS        ==")
+                print(".................................")
+                print("[1] - Cadastrar                  ")
+                print("[2] - Buscar                     ")
+                print("[3] - Atualizar                  ")
+                print("[4] - Remover                    ")
+                print("[5] - VER Usuários               ")
+                print("(0) - Sair                       ")
+                print("---------------------------------")
+
+                opt = int(input("\t=> "))
+
+                if opt==1:
+                    users.register(users_dict)
+                elif opt==2:
+                    users.search(users_dict)
+                elif opt==3:
+                    users.update_user(users_dict)
+                elif opt==4:
+                    users.remove_user(users_dict)
+                elif opt==5:
+                    users.see_all(users_dict)
+                elif opt==0:
+                    print("\n")        
+                    print("=== OBRIGADO PELA VISITA nos USUÁRIOS! ===")
+                    print("\n")
+                    status = False
+                else:
+                    print("\t|    INVALIDO   |")
+                    print("\t| Tente de novo |")
+                
+            else:
+                # Se for [comum]
+                print()
 
     """
-    Admin, funcionario
-    - Nome, cargo
+    [Atributos]- Nome, cargo
+    (Cargos)
+        - Admin (gerente)
+        - Funcionário Comum
+
+        Se o usuário for ADMIN, ele pode:
+            # remover, alterar e editar os filmes;
+            # remover, alterar e editar os funcionários;
+        Se o user foi COMUM, ele pode apenas ver os filmes e funcionários;
     """
 
 def relatorios():
@@ -190,16 +237,12 @@ while status:
 
     if resp=="1":
         filmes()
-
     elif resp=="2":
         clientes()
-
     elif resp=="3":
         ingressos()
-
     elif resp=="4":
         usuarios()
-
     elif resp=="5":
         relatorios()
 
