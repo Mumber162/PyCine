@@ -23,7 +23,7 @@ def filmes():
         print("(0) - Sair                     ")
         print("-------------------------------")
 
-        opt = int(input("\t=> "))
+        opt = int(input("Resposta => "))
 
         if opt==1:
             movies.register(films_dict)
@@ -81,7 +81,7 @@ def clientes():
         print("---------------------------------")
 
 
-        opt = int(input("\t=> "))
+        opt = int(input("Resposta=> "))
 
         if opt==1:
             clients.register(clients_dict)
@@ -135,7 +135,7 @@ def usuarios():
             print("(0) - Sair                       ")
             print("---------------------------------")
 
-            opt = int(input("\t=> "))
+            opt = int(input("Resposta => "))
 
             if opt==1:
                 users.register(users_dict)
@@ -151,10 +151,10 @@ def usuarios():
 
         # Se tiver algum usuário cadastrado
         else:
-            cargo = users.verifica_admin()
+            admin = users.verifica_admin(users_dict)
 
             # Se for [ADMIN]
-            if (cargo):
+            if (admin):
                 print("\n=================================")
                 print("==        MENU USUÁRIOS        ==")
                 print(".................................")
@@ -217,23 +217,23 @@ def relatorios():
 ##########################
 
 def home():
-    print("\nwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
-    print("          Bem-Vindo ao        ")
-    print("          P Y C I N E         ")
-    print("------------------------------")
-    print("======== VOCÊ DESEJA =========")
-    print("# [1] - Aba Filmes            ")
-    print("# [2] - Aba Clientes          ")
-    print("# [3] - Aba Ingressos         ")
-    print("# [4] - Aba Usuários          ")
-    print("# [5] - Relatórios            ")
-    print("  (0) - Sair                  ")
-    print("------------------------------")
+    print("\n\twwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+    print("\t          Bem-Vindo ao        ")
+    print("\t          P Y C I N E         ")
+    print("\t------------------------------")
+    print("\t======== VOCÊ DESEJA =========")
+    print("\t# [1] - Aba Filmes            ")
+    print("\t# [2] - Aba Clientes          ")
+    print("\t# [3] - Aba Ingressos         ")
+    print("\t# [4] - Aba Usuários          ")
+    print("\t# [5] - Relatórios            ")
+    print("\t  (0) - Sair                  ")
+    print("\t------------------------------")
 
 status = True
 while status:
     home()
-    resp = input("Escolha -> ")
+    resp = input("\tEscolha -> ")
 
     if resp=="1":
         filmes()
