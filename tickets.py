@@ -3,7 +3,7 @@
 # CADASTRAR/COMPRAR Ingressos
 """"""
 def buy(clients_dict, films_dict):
-
+    print()
 
 
 """"""
@@ -17,3 +17,4 @@ def search(clients):
 # VER
 """"""
 def see_all(clients_dict):
+    print()

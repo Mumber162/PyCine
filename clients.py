@@ -1,5 +1,4 @@
 #--------------------------------
-import tickets
 import movies
 #================================
 
@@ -42,7 +41,7 @@ def register(clients_dict, films_dict):
 """"""
 # BUSCAR Clientes
 """"""
-def search(clients):
+def search(clients_dict):
     print()
 
 

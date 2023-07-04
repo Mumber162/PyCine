@@ -1,11 +1,10 @@
+import pickle
 #--------------------------------
 import movies
 import clients
 import tickets
-import users
 import webbrowser
 #================================
-
 
 def menu_filmes():
     print("\n===============================")
@@ -46,6 +45,20 @@ films_dict = {}
 clients_dict = {}
 tickets_dict = {}
 users_dict = {}
+
+#============== BANCO DE DADOS =========================
+def carregar_banco():
+    try:
+        arqFilmes = open('database/movies_db.dat', 'rb')
+        films_dict = pickle.load(arqFilmes)
+        arqFilmes.close()
+
+        arqIngressos = open('database/tickets_db.dat', 'rb')
+        tickets_dict = pickle.load(arqIngressos)
+        arqIngressos.close()
+    except:
+        arqContatos = open('database/movies_db.dat', 'wb')
+        arqContatos.close()
 
 #== CRUDs ===
 def filmes():
@@ -221,11 +234,7 @@ def relatorios():
 
     print("...........................")
     print()
-    
-#
-##########################
-#=- PROGRAMA PRINCIPAL -=#
-##########################
+
 
 def home():
     print("\n\twwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
@@ -239,6 +248,12 @@ def home():
 #   print("\t# [5] - Relatórios            ")
     print("\t  (0) - Sair                  ")
     print("\t------------------------------")
+
+
+carregar_banco()
+##########################
+#=- PROGRAMA PRINCIPAL -=#
+##########################
 
 main = True
 while main:
