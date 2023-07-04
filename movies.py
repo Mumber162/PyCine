@@ -2,12 +2,17 @@
 import users
 #================================
 
+# Printa as opções de filmes
+def opcoes(films_dict):
+    print("\n######  TEMOS  ########\n")
+    for chave in films_dict.keys():
+        print(f"Título: {films_dict[chave]['title']} ({films_dict[chave]['release']})")
+
+# Verfica se tem filmes ou não
 def tem_filme(films_dict):
     if not films_dict:
         print(" _____________________________ ")
-        print("|                             |")
         print("|  NÃO HÁ FILMES CADASTRADOS  |")
-        print("|                             |")
         print(" =---------------------------= ")
 
         input("Tecle ENTER para continuar...\n\n")
@@ -19,7 +24,7 @@ def tem_filme(films_dict):
 """"""
 # CADASTRAR Filmes
 """"""
-def register(films_dict):
+def register():
     print("\n#######################################")
     print("|-(se tiver + de 1, separe por vírgula)--")
     print("|")
@@ -35,6 +40,7 @@ def register(films_dict):
     directors = director.split(", ")
 
     movie = {
+        'code':      title.upper(),
         "title":     title,
         "genre":     genres,
         "director":  directors,
@@ -42,9 +48,10 @@ def register(films_dict):
         "class_ind": class_ind,
         "duration":  duration
         }
+    
+    return movie
 
-    films_dict.append(movie)
-
+    #Armazenando no Banco
 
 """"""
 # BUSCAR
@@ -53,61 +60,35 @@ def search(films_dict):
 
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
-        print("======================================")
-        name_search = input("Digite o nome do filme: ").lower()
+        print("\n###############################")
+        name_search = input("Digite o nome do filme: ").upper()
 
-        print("###############=- RESULTADO(s) -=###############\n")
-        films_buscados = []
-        for i in range(len(films_dict)):
-            name_movie = films_dict[i]["title"].lower()
+        print("========- RESULTADO -=======\n")
+        for name_key in films_dict.keys():
+            if name_search==name_key:
+                print(f"1: {films_dict[name_key]['title']} | Lançamento: {films_dict[name_key]['release']}\n")
 
-            if name_search==name_movie:
-                films_buscados.append(i)
-
-        if len(films_buscados)==0:
-            print("    Não há filmes cadastrados com esse título\n")
-            print("################################################\n\n\n")
-        else:
-            for j in range(len(films_buscados)):
-                print(f"{int(j)+1}: {films_dict[(films_buscados[j])]['title']} ({films_dict[(films_buscados[j])]['release']})")
-
+            else:
+                print(" Não há filmes cadastrados com esse título\n")
+       
+        print("################################\n")
+        input("Tecle ENTER para continuar...\n\n")
 
 """"""
 # ATUALIZAR
 """"""
+# if (users.verifica_cargo())
 def update_film(films_dict):
-    # if (users.verifica_cargo())
 
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
-        # Printa as opções de filmes
-        for i in range(len(films_dict)):
-            print(f"{int(i)+1}. {films_dict[i]['title']} ({films_dict[i]['release']})")
-
+        opcoes(films_dict)
         print("\n##################################")
-        filme = int(input("[Dgt o nº] Qual filme atualizar? "))
+        filme = input("Qual filme atualizar? ").upper()
 
-        print("\n#######################################")
-        print("|-(se tiver + de 1, separe por vírgula)--")
-        print("|")
-
-        title     = input("| TÍTULO do filme: ")
-        genre     = input("| GÊNERO(s): ")
-        director  = input("| DIRETOR(es): ")
-        release   = input("| DATA de Lançamento: ")
-        class_ind = input("| Classificação Indicativa: ")
-        duration  = int(input("| Duração (em min): "))
-
-        genres = genre.split(", ")
-        directors = director.split(", ")
-
-        # Atualização
-        films_dict[filme-1]["title"]     = title
-        films_dict[filme-1]["genre"]     = genres
-        films_dict[filme-1]["director"]  = directors
-        films_dict[filme-1]["release"]   = release
-        films_dict[filme-1]["class_ind"] = class_ind
-        films_dict[filme-1]["duration"]  = duration
+        print(f"... Atualizando {filme} ...")
+        atualiza = register()
+        films_dict[filme] = atualiza
 
 
 """"""
@@ -119,14 +100,13 @@ def delete_film(films_dict):
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
         # Printa as opções de filmes
-        print("\n##############################")
+        print("\n########################")
         print("Qual filme quer deletar:")
-        print("##############################\n")
-        for i in range(len(films_dict)):
-            print(f"{int(i)+1}. {films_dict[i]['title']} ({films_dict[i]['release']})")
-        print("\n==============================")
+        print("........................")
+        opcoes(films_dict)
+        print("\n========================")
 
-        option = (int(input("-> ")))-1  
+        option = input("-> ").upper()
         del films_dict[option]
 
         print("= Filme Deletado com Sucesso!")
@@ -140,26 +120,22 @@ def see_all(films_dict):
 
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
-        for film in (films_dict):
-            print("\n########## • FILME • ##########")
-            print()
-            print("TÍTULO: ", film["title"])
+        for fkey in (films_dict):
+            print(f"\n\n#### • FILME: {fkey} • ####\n")
 
             print("GÊNERO(s): \n•", end="")
-            for gnr in film["genre"]:
+            for gnr in films_dict[fkey]['genre']:
                 print("", gnr, end=" -")
             print()
             print("DIRETOR(es): \n•", end="")
-            for dir in film["director"]:
+            for dir in films_dict[fkey]['director']:
                 print("", dir, end=" -")
-            print()
 
-            print("DATA DE LANÇAMENTO: ",  film["release"])
-            print("CLASSIF. INDICATIVA: ", film["class_ind"])
+            print("\nDATA DE LANÇAMENTO: ", films_dict[fkey]["release"])
+            print("CLASSIF. INDICATIVA: ",  films_dict[fkey]["class_ind"])
 
-            hora    = (film["duration"])//60
-            minutos = (film["duration"])%60
-            print(f"DURAÇÃO: {hora}h {minutos}min")
+            hora    = (films_dict[fkey]["duration"])//60
+            minutos = (films_dict[fkey]["duration"])%60
+            print(f"DURAÇÃO: {hora}h {minutos}min\n--------------------------")
 
         input("Tecle ENTER para continuar...\n\n")
-    

@@ -8,11 +8,11 @@ import movies
 # CADASTRAR Clientes
 """"""
 def register(clients_dict, films_dict):
-    print("#####################")
-    print("|")
+    print("#####################\n|")
 
     name = input("| NOME: ")
     age  = input("| IDADE: ")
+    cpf  = input("| CPF: ")
 
     #------- Parte dos Clientes ============
     client = {
@@ -20,7 +20,8 @@ def register(clients_dict, films_dict):
         "age":  age,
         "ticket_number": (len(clients_dict))
     }
-    clients_dict.append(client)
+    
+    clients_dict[cpf] = client
 
     #------- Parte dos INGRESSOS ===========
     print("\n=================================")
