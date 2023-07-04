@@ -23,9 +23,8 @@ def menu_ingressos():
     print(".................................")
     print("[1] - Comprar                    ")
     print("[2] - Buscar                     ")
-    print("[3] - Atualizar                  ")
-    print("[4] - Remover                    ")
-    print("[5] - VER Ingressos              ")
+    print("[3] - Remover                    ")
+    print("[4] - VER Ingressos              ")
     print("(0) - Sair                       ")
     print("---------------------------------")
 def menu_clientes():
@@ -40,25 +39,25 @@ def menu_clientes():
     print("(0) - Sair                       ")
     print("---------------------------------")
 
-# Listas
-films_dict = {}
-clients_dict = {}
-tickets_dict = {}
-users_dict = {}
 
 #============== BANCO DE DADOS =========================
-def carregar_banco():
+def carregar_banco(banco):
+    dict = {}
     try:
-        arqFilmes = open('database/movies_db.dat', 'rb')
-        films_dict = pickle.load(arqFilmes)
-        arqFilmes.close()
-
-        arqIngressos = open('database/tickets_db.dat', 'rb')
-        tickets_dict = pickle.load(arqIngressos)
-        arqIngressos.close()
+        arq = open(banco, 'rb')
+        dict = pickle.load(arq)
+        arq.close()
     except:
-        arqContatos = open('database/movies_db.dat', 'wb')
-        arqContatos.close()
+        arq = open(banco, 'wb')
+        arq.close()
+    return dict
+#=========================================================
+
+# Listas
+films_dict = carregar_banco('database/movies_db.dat')
+tickets_dict = carregar_banco('database/tickets_db.dat')
+clients_dict = carregar_banco('database/clients_db.dat')
+users_dict = carregar_banco('database/users_db.dat')
 
 #== CRUDs ===
 def filmes():
@@ -69,8 +68,9 @@ def filmes():
         opt = int(input("Resposta => "))
 
         if opt==1:
-            movie = movies.register()
-            films_dict[(movie['code'])] = movie
+            movie = movies.register(films_dict)
+            
+
         elif opt==2:
             movies.search(films_dict)
         elif opt==3:
@@ -95,7 +95,14 @@ def clientes():
         opt = int(input("Resposta=> "))
 
         if opt==1:
-            clients.register(clients_dict, films_dict)
+            client = clients.register()
+            clients_dict[(client['cpf'])] = client
+
+            # Armazenando no Banco
+            arqClientes = open('database/clients_db.dat', 'wb')
+            pickle.dump(clients_dict, arqClientes)
+            arqClientes.close()
+
         elif opt==2:
             clients.search(clients_dict)
         elif opt==3:
@@ -118,23 +125,21 @@ def ingressos():
     status = True
     while status:
 
-        menu_clientes()
+        menu_ingressos()
         opt = int(input("Resposta=> "))
 
         if opt==1:
-            tickets.register(clients_dict, films_dict)
+            tickets.buy(clients_dict, films_dict, tickets_dict)
         elif opt==2:
-            clients.search(clients_dict)
+            tickets.search(tickets_dict)
         elif opt==3:
-            clients.update_client(clients_dict)
+            tickets.delete_client(tickets_dict)
         elif opt==4:
-            clients.delete_client(clients_dict)
-        elif opt==5:
-            clients.see_all(clients_dict)
+            tickets.see_all(tickets_dict)
+        # elif opt==5:
+        #     tickets.update_client(tickets_dict)
         elif opt==0:
-            print("\n")        
-            print("=== OBRIGADO PELA VISITA nos CLIENTES! ===")
-            print("\n")
+            print("\n\n=== OBRIGADO PELA VISITA nos CLIENTES! ===\n\n")
             status = False
         else:
             print("\t|    INVALIDO   |")
@@ -142,9 +147,9 @@ def ingressos():
     """
     [Atributos]:
         - Nº do ingresso (equivalente a quantidade de poltronas)
+        - filme
         - nome do cliente que adquiriu o ingresso
         - data e hora da sessão
-        - filme
         - "poltrona (?)"
 
         Eles não possuem menu, pois são acessados por clientes, como se fosse
@@ -250,7 +255,6 @@ def home():
     print("\t------------------------------")
 
 
-carregar_banco()
 ##########################
 #=- PROGRAMA PRINCIPAL -=#
 ##########################

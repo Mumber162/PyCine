@@ -1,4 +1,5 @@
 #--------------------------------
+import pickle
 import users
 #================================
 
@@ -24,7 +25,7 @@ def tem_filme(films_dict):
 """"""
 # CADASTRAR Filmes
 """"""
-def register():
+def register(films_dict):
     print("\n#######################################")
     print("|-(se tiver + de 1, separe por vírgula)--")
     print("|")
@@ -49,9 +50,13 @@ def register():
         "duration":  duration
         }
     
-    return movie
+    
+    films_dict[(movie['code'])] = movie
 
-    #Armazenando no Banco
+    # Armazenando no Banco
+    arqFilmes = open('database/movies_db.dat', 'wb')
+    pickle.dump(films_dict, arqFilmes)
+    arqFilmes.close()
 
 """"""
 # BUSCAR
@@ -87,8 +92,35 @@ def update_film(films_dict):
         filme = input("Qual filme atualizar? ").upper()
 
         print(f"... Atualizando {filme} ...")
-        atualiza = register()
-        films_dict[filme] = atualiza
+        print("\n#######################################")
+        print("|-(se tiver + de 1, separe por vírgula)--")
+        print("|")
+
+        title     = input("| TÍTULO do filme: ")
+        genre     = input("| GÊNERO(s): ")
+        director  = input("| DIRETOR(es): ")
+        release   = input("| DATA de Lançamento: ")
+        class_ind = input("| Classificação Indicativa: ")
+        duration  = int(input("| Duração (em min): "))
+
+        genres = genre.split(", ")
+        directors = director.split(", ")
+
+        movie = {
+            'code':      title.upper(),
+            "title":     title,
+            "genre":     genres,
+            "director":  directors,
+            "release":   release,
+            "class_ind": class_ind,
+            "duration":  duration
+            }
+        films_dict[filme] = movie
+
+        # Armazenando no Banco
+        arqFilmes = open('database/movies_db.dat', 'wb')
+        pickle.dump(films_dict, arqFilmes)
+        arqFilmes.close()
 
 
 """"""
@@ -108,6 +140,11 @@ def delete_film(films_dict):
 
         option = input("-> ").upper()
         del films_dict[option]
+
+        # Armazenando no Banco
+        arqFilmes = open('database/movies_db.dat', 'wb')
+        pickle.dump(films_dict, arqFilmes)
+        arqFilmes.close()
 
         print("= Filme Deletado com Sucesso!")
         input("Tecle ENTER para continuar...\n\n")

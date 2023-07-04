@@ -1,48 +1,74 @@
 #--------------------------------
-import movies
-#================================
 
+# Verfica se tem clientes
+def tem_client(clients_dict):
+    if not clients_dict:
+        print(" _____________________________ ")
+        print("|  NÃO HÁ CLIENTES CADASTRADOS  |")
+        print(" =---------------------------= ")
+
+        input("Tecle ENTER para continuar...\n\n")
+
+        return False
+    else:
+        return True
+    
+#================================
 
 """"""
 # CADASTRAR Clientes
 """"""
-def register(clients_dict, films_dict):
+def register():
     print("#####################\n|")
 
     name = input("| NOME: ")
     age  = input("| IDADE: ")
     cpf  = input("| CPF: ")
 
-    #------- Parte dos Clientes ============
     client = {
         "name": name,
         "age":  age,
-        "ticket_number": (len(clients_dict))
+        'cpf': cpf,
     }
     
-    clients_dict[cpf] = client
-
-    #------- Parte dos INGRESSOS ===========
-    print("\n=================================")
-    print("==        MENU INGRESSOS        ==")
-    print(".................................")
-    print("[1] - Comprar Ingressos          ")
-    print("[2] - Cancelar Ingressos         ")
-    print("(0) - Sair                       ")
-    print("---------------------------------")
-
-
-    ha_filme = movies.tem_filme(films_dict)
-    if (ha_filme):
-        
-        ingresso = {}
+    return client
 
 
 """"""
 # BUSCAR Clientes
 """"""
 def search(clients_dict):
-    print()
+    
+    ha_client = tem_client(clients_dict)
+    if (ha_client):
+        print("\n###############################")
+        name_search = input("Digite o CPF do Cliente: ")
+
+        print("========- RESULTADO -=======\n")
+        if name_search in clients_dict.keys():
+            print(clients_dict[name_search])
+
+        else:
+            print(" Não há clientes cadastrados com esse CPF\n")
+       
+        print("################################\n")
+        input("Tecle ENTER para continuar...\n\n")
+
+
+""""""
+# ATUALIZAR
+""""""
+def update_client(clients_dict):
+
+    ha_cliente = tem_client(clients_dict)
+    if (ha_cliente):
+        
+        print("\n##################################")
+        cliente = input("Qual cliente atualizar? ")
+
+        print(f"... Atualizando {cliente} ...")
+        atualiza = register()
+        clients_dict[cliente] = atualiza
 
 
 """"""
@@ -50,11 +76,11 @@ def search(clients_dict):
 """"""
 def see_all(clients_dict):
     print("___________________________")
-    for i in range(len(clients_dict)):
-        print("\n----=== - CLIENTE %d - ===----" % (int(i)+1))
+    for ckey in clients_dict:
+        print("\n----=== - CLIENTE  - ===----")
         print()
-        print("NOME: ",         clients_dict[i]["name"])
-        print("IDADE: ",        clients_dict[i]["age"])
-        print("Nº de TICKET: ", clients_dict[i]["ticket_number"])
-        print("- - - =-= - - - =-= - - -")
+        print("NOME: ",  clients_dict[ckey]["name"])
+        print("IDADE: ", clients_dict[ckey]["age"])
+        print("CPF: ",   clients_dict[ckey]["cpf"])
     print("___________________________")
+    input("Tecle ENTER para continuar...\n\n")
