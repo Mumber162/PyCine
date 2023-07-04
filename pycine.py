@@ -146,14 +146,11 @@ def ingressos():
             print("\t| Tente de novo |")
     """
     [Atributos]:
-        - Nº do ingresso (equivalente a quantidade de poltronas)
+        - Nº do ingresso (código da poltrona)
         - filme
         - nome do cliente que adquiriu o ingresso
         - data e hora da sessão
         - "poltrona (?)"
-
-        Eles não possuem menu, pois são acessados por clientes, como se fosse
-        uma chave estrangeira
     """
 
 # -= Para desenvolver Futuramente...
