@@ -146,86 +146,11 @@ def ingressos():
             print("\t| Tente de novo |")
     """
     [Atributos]:
-        - Nº do ingresso (código da poltrona)
+        - Nº do ingresso (código da poltrona) Ex: A4S4
         - filme
         - nome do cliente que adquiriu o ingresso
         - data e hora da sessão
-        - "poltrona (?)"
     """
-
-# -= Para desenvolver Futuramente...
-# Aba de "Usuários"
-"""
-def usuarios():
-
-    status = True
-    while status:
-
-        # Se não tiver nenhum usuário cadastrado
-        if (len(users_dict)==0):
-            print("\n=================================")
-            print("==        MENU USUÁRIOS        ==")
-            print(".................................")
-            print("[1] - Cadastrar                  ")
-            print("(0) - Sair                       ")
-            print("---------------------------------")
-
-            opt = int(input("Resposta => "))
-
-            if opt==1:
-                users.register(users_dict)
-            elif opt==0:
-                print("\n")        
-                print("=== OBRIGADO PELA VISITA nos USUÁRIOS! ===")
-                print("\n")
-                status = False
-            else:
-                print("\t|    INVALIDO   |")
-                print("\t| Tente de novo |")
-
-        # Se tiver algum usuário cadastrado
-        else:
-            admin = users.verifica_admin(users_dict)
-
-            # Se for [ADMIN]
-            if (admin):
-                print("\n=================================")
-                print("==        MENU USUÁRIOS        ==")
-                print(".................................")
-                print("[1] - Cadastrar                  ")
-                print("[2] - Buscar                     ")
-                print("[3] - Atualizar                  ")
-                print("[4] - Remover                    ")
-                print("[5] - VER Usuários               ")
-                print("(0) - Sair                       ")
-                print("---------------------------------")
-
-                opt = int(input("\t=> "))
-
-                if opt==1:
-                    users.register(users_dict)
-                elif opt==2:
-                    users.search(users_dict)
-                elif opt==3:
-                    users.update_user(users_dict)
-                elif opt==4:
-                    users.delete_user(users_dict)
-                elif opt==5:
-                    users.see_all(users_dict)
-                elif opt==0:
-                    print("\n")        
-                    print("=== OBRIGADO PELA VISITA nos USUÁRIOS! ===")
-                    print("\n")
-                    status = False
-                else:
-                    print("\t|    INVALIDO   |")
-                    print("\t| Tente de novo |")
-                
-            else:
-                # Se for [comum]
-                print()
-
-"""
 
 def relatorios():
     print("\n== Aqui está o relatório ==")
@@ -249,6 +174,7 @@ def home():
     print("\t# [3] - Aba Clientes          ")
 #   print("\t# [5] - Relatórios            ")
     print("\t  (0) - Sair                  ")
+    print("\t  (S) - Sobre                 ")
     print("\t------------------------------")
 
 
@@ -267,10 +193,12 @@ while main:
         ingressos()
     elif resp=="3":
         clientes()
-
     elif resp=="0":
         print("\n\n=== OBRIGADO PELA VISITA! ===\n\n")
         main = False
+
+    elif resp.upper()=="S":
+        webbrowser.open('https://github.com/Mumber162/PyCine')
 
     else:
         print("\n=================")
