@@ -30,17 +30,19 @@ def buy(clients_dict, films_dict, tickets_dict):
         movies.see_all(films_dict)
         print("-------------------------")
 
-        opt       = input("Qual filme você quer? ")
-        date_time = input("Data/Hora da sessão: ")
-        code      = input("Código do ingresso: ")
+        opt  = input("Qual filme você quer? ")
+        date = input("Data da sessão: ")
+        time = input("Hora da sessão: ")
+        code = input("Qual assento (poltrona): ")
 
         clients.see_all(clients_dict)
         client    = input("Para qual cliente? ")
 
         ticket = {
-            'code': code,
+            'code': code.upper(),
             'movie': opt,
-            'date_time': date_time,
+            'date': date,
+            'time': time,
             'client': client,
         }
 
@@ -100,4 +102,9 @@ def delete_film(tickets_dict):
 # VER
 """"""
 def see_all(tickets_dict):
-    print(tickets_dict)
+    for chave in tickets_dict.keys():
+        print("========================")
+        print(f'Poltrona "{tickets_dict[chave]}": ')
+        print("-----------------------")
+        print(f"• {tickets_dict[chave]['movie']}")
+        print(f"• {tickets_dict[chave]['date']} às {tickets_dict[chave]['time']}")

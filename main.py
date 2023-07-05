@@ -136,8 +136,6 @@ def ingressos():
             tickets.delete_client(tickets_dict)
         elif opt==4:
             tickets.see_all(tickets_dict)
-        # elif opt==5:
-        #     tickets.update_client(tickets_dict)
         elif opt==0:
             print("\n\n=== OBRIGADO PELA VISITA nos CLIENTES! ===\n\n")
             status = False
