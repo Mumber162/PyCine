@@ -113,7 +113,7 @@ def clientes():
         elif opt==3:
             client = clients.update_client(clients_dict)
             clients_dict[(client['cpf'])] = client
-            
+
             # Armazenando no Banco
             arqClientes = open('database/clients_db.dat', 'wb')
             pickle.dump(clients_dict, arqClientes)
@@ -145,7 +145,7 @@ def ingressos():
         elif opt==2:
             tickets.search(tickets_dict)
         elif opt==3:
-            tickets.delete_client(tickets_dict)
+            tickets.delete_ticket(tickets_dict)
         elif opt==4:
             tickets.see_all(tickets_dict)
         elif opt==0:
@@ -176,6 +176,11 @@ def relatorios():
     print("##########################")
     clients.see_all(clients_dict)
 
+    print("\n###########################")
+    print("======== INGRESSOS ========")
+    print("###########################")
+    tickets.see_all(tickets_dict)
+
     print("...........................")
     print()
 
@@ -187,9 +192,9 @@ def home():
     print("\t------------------------------")
     print("\t======== VOCÊ DESEJA =========")
     print("\t# [1] - Aba Filmes            ")
-    print("\t# [2] - Comprar Ingressos     ")
+    print("\t# [2] - Aba Ingressos         ")
     print("\t# [3] - Aba Clientes          ")
-    print("\t# [5] - Relatórios            ")
+    print("\t# [4] - Relatórios            ")
     print("\t  (0) - Sair                  ")
     print("\t  (S) - Sobre                 ")
     print("\t------------------------------")
@@ -210,6 +215,8 @@ while main:
         ingressos()
     elif resp=="3":
         clientes()
+    elif resp=="4":
+        relatorios()
     elif resp=="0":
         print("\n\n=== OBRIGADO PELA VISITA! ===\n\n")
         main = False

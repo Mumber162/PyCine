@@ -22,8 +22,9 @@ def tem_ingresso(tickets_dict):
 """"""
 def buy(clients_dict, films_dict, tickets_dict):
 
-    ha_filme = movies.tem_filme(films_dict)
-    if ha_filme:
+    ha_filme   = movies.tem_filme(films_dict)
+    ha_cliente = client.tem_client(clients_dict)
+    if ha_filme and ha_cliente:
         print("\n=========================")
         print("==        COMPRA       ==")
         print(".........................")
@@ -82,16 +83,20 @@ def search(tickets_dict):
 """"""
 # REMOVER
 """"""
-def delete_film(tickets_dict):
+def delete_ticket(tickets_dict):
     # (verificar se é admin)
 
-    ha_ingresso = ha_ingresso(tickets_dict)
+    ha_ingresso = tem_ingresso(tickets_dict)
     if (ha_ingresso):
         # Printa as opções de filmes
         print("\n########################")
-        print("Qual ingresso quer deletar: ")
+        see_all(tickets_dict)
+        print("Qual ingresso quer deletar ([0] para Cancelar): ")
 
-        code = input("-> ")
+        code = input("-> ").upper()
+        if code=="0":
+            print("Cancelado!")
+            return
         del tickets_dict[code]
 
         # Armazenando no Banco
@@ -108,11 +113,13 @@ def delete_film(tickets_dict):
 # VER
 """"""
 def see_all(tickets_dict):
-    for chave in tickets_dict.keys():
-        print(f"====== INGRESSO DE - {tickets_dict[chave]['client']} - ============")
-        print(f'Poltrona "{tickets_dict[chave]["code"]}": ')
-        print(f"• {tickets_dict[chave]['movie']}")
-        print(f"• {tickets_dict[chave]['date']} às {tickets_dict[chave]['time']}")
-        print("-----------------------\n\n")
 
-    input("Tecle ENTER para continuar...\n\n")
+    ha_ingresso = tem_ingresso(tickets_dict)
+    if (ha_ingresso):
+        for chave in tickets_dict.keys():
+            print(f"\n====== INGRESSO DE - {tickets_dict[chave]['client']} - ======")
+            print(f'Poltrona "{tickets_dict[chave]["code"]}": ')
+            print(f"• {tickets_dict[chave]['movie']}")
+            print(f"• {tickets_dict[chave]['date']} às {tickets_dict[chave]['time']}")
+            print("-----------------------\n\n")
+            input("Tecle ENTER para continuar...\n\n")
