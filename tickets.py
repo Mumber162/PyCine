@@ -48,6 +48,8 @@ def buy(clients_dict, films_dict, tickets_dict):
 
         tickets_dict[(ticket['code'])] = ticket
 
+        print("  ...Ingresso adquirido com sucesso!...")
+
         # Armazenando no Banco
         arqIngressos = open('database/tickets_db.dat', 'wb')
         pickle.dump(tickets_dict, arqIngressos)
@@ -104,7 +106,9 @@ def delete_film(tickets_dict):
 def see_all(tickets_dict):
     for chave in tickets_dict.keys():
         print("========================")
-        print(f'Poltrona "{tickets_dict[chave]}": ')
-        print("-----------------------")
+        print(f'Poltrona "{tickets_dict[chave]["code"]}": ')
         print(f"• {tickets_dict[chave]['movie']}")
         print(f"• {tickets_dict[chave]['date']} às {tickets_dict[chave]['time']}")
+        print("-----------------------\n\n")
+
+    input("Tecle ENTER para continuar...\n\n")

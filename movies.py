@@ -69,12 +69,11 @@ def search(films_dict):
         name_search = input("Digite o nome do filme: ").upper()
 
         print("========- RESULTADO -=======\n")
-        for name_key in films_dict.keys():
-            if name_search==name_key:
-                print(f"1: {films_dict[name_key]['title']} | Lançamento: {films_dict[name_key]['release']}\n")
+        if name_search in films_dict.keys():
+            print(f"1: {films_dict[name_search]['title']} | Lançamento: {films_dict[name_search]['release']}\n")
 
-            else:
-                print(" Não há filmes cadastrados com esse título\n")
+        else:
+            print(" Não há filmes cadastrados com esse título\n")
        
         print("################################\n")
         input("Tecle ENTER para continuar...\n\n")
@@ -89,39 +88,72 @@ def update_film(films_dict):
     if (ha_filme):
         opcoes(films_dict)
         print("\n##################################")
-        filme = input("Qual filme atualizar? ").upper()
+        filme = input("Qual filme atualizar [dgt o título]? ").upper()
 
-        print(f"... Atualizando {filme} ...")
-        print("\n#######################################")
-        print("|-(se tiver + de 1, separe por vírgula)--")
-        print("|")
+        if (filme.upper()) in films_dict.keys():
 
-        title     = input("| TÍTULO do filme: ")
-        genre     = input("| GÊNERO(s): ")
-        director  = input("| DIRETOR(es): ")
-        release   = input("| DATA de Lançamento: ")
-        class_ind = input("| Classificação Indicativa: ")
-        duration  = int(input("| Duração (em min): "))
+            print("\n#######################################")
+            print(f"    ... Atualizando {filme} ...")
+            print("Para atualizar TUDO, digite [T]")
+            print("P/ atualizar só uma chave específica, dgt em inglês")
+            print("#######################################")
+            upd = input("-> ")
 
-        genres = genre.split(", ")
-        directors = director.split(", ")
+            print("|-(se tiver + de 1, separe por vírgula)--")
+            print("|")
 
-        movie = {
-            'code':      title.upper(),
-            "title":     title,
-            "genre":     genres,
-            "director":  directors,
-            "release":   release,
-            "class_ind": class_ind,
-            "duration":  duration
-            }
-        films_dict[filme] = movie
+            if upd.upper()=="T":
+                title     = input("| TÍTULO do filme: ")
+                genre     = input("| GÊNERO(s): ")
+                director  = input("| DIRETOR(es): ")
+                release   = input("| DATA de Lançamento: ")
+                class_ind = input("| Classificação Indicativa: ")
+                duration  = int(input("| Duração (em min): "))
 
-        # Armazenando no Banco
-        arqFilmes = open('database/movies_db.dat', 'wb')
-        pickle.dump(films_dict, arqFilmes)
-        arqFilmes.close()
+                genres = genre.split(", ")
+                directors = director.split(", ")
 
+                movie = {
+                    'code':      title.upper(),
+                    "title":     title,
+                    "genre":     genres,
+                    "director":  directors,
+                    "release":   release,
+                    "class_ind": class_ind,
+                    "duration":  duration
+                    }
+                films_dict[filme] = movie
+
+                # Armazenando no Banco
+                arqFilmes = open('database/movies_db.dat', 'wb')
+                pickle.dump(films_dict, arqFilmes)
+                arqFilmes.close()
+
+            elif upd in films_dict[filme].keys():
+
+                print(f"New {upd}: ", end="")
+                if upd!="duration":
+                    val = input()
+                else:
+                    val = int(input())
+
+                films_dict[filme][upd] = val
+
+                if upd=="title":
+                    new_key = films_dict[filme]
+                    del films_dict[filme]
+                    films_dict[val] = new_key
+
+                # Armazenando no Banco
+                arqFilmes = open('database/movies_db.dat', 'wb')
+                pickle.dump(films_dict, arqFilmes)
+                arqFilmes.close()
+
+            else:
+                print("Update Cancelado!")
+        else:
+            print("Update Cancelado!")
+        input("Tecle ENTER para continuar...\n\n")
 
 """"""
 # REMOVER
@@ -158,7 +190,7 @@ def see_all(films_dict):
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
         for fkey in (films_dict):
-            print(f"\n\n#### • FILME: {fkey} • ####\n")
+            print(f"\n\n#### • Filme: {(films_dict[fkey]['title']).upper()} • ####\n")
 
             print("GÊNERO(s): \n•", end="")
             for gnr in films_dict[fkey]['genre']:
