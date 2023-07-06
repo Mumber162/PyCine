@@ -196,7 +196,7 @@ while main:
         main = False
 
     elif resp.upper()=="S":
-        webbrowser.open('https://github.com/Mumber162/PyCine')
+        webbrowser.open('https://github.com/Mumber162/PyCine/blob/main/README.md')
 
     else:
         print("\n=================")
