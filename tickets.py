@@ -23,7 +23,7 @@ def tem_ingresso(tickets_dict):
 def buy(clients_dict, films_dict, tickets_dict):
 
     ha_filme   = movies.tem_filme(films_dict)
-    ha_cliente = client.tem_client(clients_dict)
+    ha_cliente = clients.tem_client(clients_dict)
     if ha_filme and ha_cliente:
         print("\n=========================")
         print("==        COMPRA       ==")
@@ -31,17 +31,24 @@ def buy(clients_dict, films_dict, tickets_dict):
         movies.see_all(films_dict)
         print("-------------------------")
 
-        opt  = input("Qual filme você quer? ")
-        date = input("Data da sessão: ")
-        time = input("Hora da sessão: ")
-        seat = input("Qual assento (poltrona): ")
-        sess = input("Qual sessão/sala? ")
+        opt   = input("Qual filme você quer? ")
 
+        # Associar AQUI
+
+        date  = input("Data da sessão: ")
+        time  = input("Hora da sessão: ")
+        seat  = input("Qual assento (poltrona): ")
+        sess  = input("Qual sessão/sala (Dgt: 1, 2,... n): ")
+        price = float(input("Qual o preço do ingresso? R$ "))
+
+        round_price = format(price, ".2f")
         code = seat+"S"+sess
 
-        print("Para qual cliente? ")
+        print("\nPara qual cliente? ")
         clients.see_all(clients_dict)
-        client    = input("\ncliente -> ")
+        client    = input("cliente -> ")
+
+        # Associar AQUI
 
         ticket = {
             'code': code.upper(),
@@ -49,6 +56,7 @@ def buy(clients_dict, films_dict, tickets_dict):
             'date': date,
             'time': time,
             'client': client,
+            'price': round_price
         }
 
         tickets_dict[(ticket['code'])] = ticket

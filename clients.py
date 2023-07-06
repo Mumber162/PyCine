@@ -4,9 +4,9 @@ import library.check_cpf as check
 # Verfica se tem clientes
 def tem_client(clients_dict):
     if not clients_dict:
-        print(" _____________________________ ")
+        print(" _______________________________ ")
         print("|  NÃO HÁ CLIENTES CADASTRADOS  |")
-        print(" =---------------------------= ")
+        print(" =-----------------------------= ")
 
         input("Tecle ENTER para continuar...\n\n")
 
@@ -88,13 +88,16 @@ def update_client(clients_dict):
 # VER
 """"""
 def see_all(clients_dict):
-    print("___________________________")
-    for ckey in clients_dict:
-        print("\n----=== - CLIENTE  - ===----")
-        print()
-        print("NOME: ",     clients_dict[ckey]["name"])
-        print("IDADE: ",    clients_dict[ckey]["age"])
-        print("TELEFONE: ", clients_dict[ckey]["phone"])
-        print("CPF: ",      clients_dict[ckey]["cpf"])
-    print("\n")
-    input("Tecle ENTER para continuar...\n\n")
+
+    ha_client = tem_client(clients_dict)
+    if (ha_client):
+        print("___________________________")
+        for ckey in clients_dict:
+            print("\n----=== - CLIENTE  - ===----")
+            print()
+            print("NOME: ",     clients_dict[ckey]["name"])
+            print("IDADE: ",    clients_dict[ckey]["age"])
+            print("TELEFONE: ", clients_dict[ckey]["phone"])
+            print("CPF: ",      clients_dict[ckey]["cpf"])
+        print("\n")
+        input("Tecle ENTER para continuar...\n\n")

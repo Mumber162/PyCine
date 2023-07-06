@@ -40,7 +40,7 @@ def menu_clientes():
     print("---------------------------------")
 
 
-#============== BANCO DE DADOS =========================
+#======= BANCO DE DADOS ============
 def carregar_banco(banco):
     dict = {}
     try:
@@ -51,7 +51,7 @@ def carregar_banco(banco):
         arq = open(banco, 'wb')
         arq.close()
     return dict
-#=========================================================
+#====================================
 
 # Listas
 films_dict = carregar_banco('database/movies_db.dat')
@@ -79,7 +79,16 @@ def filmes():
         elif opt==2:
             movies.search(films_dict)
         elif opt==3:
-            movies.update_film(films_dict)
+            movie = movies.update_film(films_dict)
+
+            if not (not films_dict):
+                films_dict[movie['code']] = movie
+                
+            # Armazenando no Banco
+            arqFilmes = open('database/movies_db.dat', 'wb')
+            pickle.dump(films_dict, arqFilmes)
+            arqFilmes.close()
+
         elif opt==4:
             movies.delete_film(films_dict)
         elif opt==5:
@@ -112,7 +121,9 @@ def clientes():
             clients.search(clients_dict)
         elif opt==3:
             client = clients.update_client(clients_dict)
-            clients_dict[(client['cpf'])] = client
+
+            if not (not clients_dict):
+                clients_dict[client['cpf']] = client
 
             # Armazenando no Banco
             arqClientes = open('database/clients_db.dat', 'wb')

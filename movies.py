@@ -5,9 +5,15 @@ import users
 
 # Printa as opções de filmes
 def opcoes(films_dict):
-    print("\n######  TEMOS  ########\n")
-    for chave in films_dict.keys():
-        print(f"Título: {films_dict[chave]['title']} ({films_dict[chave]['release']})")
+    print("\n#########  TEMOS  ##########\n")
+
+    # Forma otimizada de printar elementos de dicionários dentro de dicionários
+    keys = films_dict.values()
+    for k in keys:
+        print(f"Título: {k['title']} ({k['release']})")
+        print(f"[COD.]: {k['code']}")
+
+    print("\n===========================")
 
 # Verfica se tem filmes ou não
 def tem_filme(films_dict):
@@ -36,12 +42,13 @@ def register():
     release   = input("| DATA de Lançamento: ")
     class_ind = input("| Classificação Indicativa: ")
     duration  = int(input("| Duração (em min): "))
+    code      = input("(Código do Filme): ").upper()
 
     genres = genre.split(", ")
     directors = director.split(", ")
 
     movie = {
-        'code':      title.upper(),
+        'code':      code,
         "title":     title,
         "genre":     genres,
         "director":  directors,
@@ -59,14 +66,15 @@ def search(films_dict):
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
         print("\n###############################")
-        name_search = input("Digite o nome do filme: ").upper()
+        s = input("Digite o código do filme: ").upper()
 
         print("========- RESULTADO -=======\n")
-        if name_search in films_dict.keys():
-            print(f"1: {films_dict[name_search]['title']} | Lançamento: {films_dict[name_search]['release']}\n")
+        for key in films_dict.keys():
+            if (s in key):
+                print(f"1: {films_dict[s]['title']} | Lançamento: {films_dict[s]['release']}\n")
 
-        else:
-            print(" Não há filmes cadastrados com esse título\n")
+            else:
+                print(" Não há filmes cadastrados com esse título\n")
        
         print("################################\n")
         input("Tecle ENTER para continuar...\n\n")
@@ -80,10 +88,11 @@ def update_film(films_dict):
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
         opcoes(films_dict)
-        print("\n##################################")
-        filme = input("Qual filme atualizar [dgt o título]? ").upper()
+        print(" #  - Qual filme atualizar [dgt o código]")
+        print("(0) - Cancelar")
+        filme = input("-> : ").upper()
 
-        if (filme.upper()) in films_dict.keys():
+        if (filme) in films_dict.keys():
 
             print("\n#######################################")
             print(f"    ... Atualizando {filme} ...")
@@ -92,24 +101,16 @@ def update_film(films_dict):
             print("#######################################")
             upd = input("-> ")
 
-            print("|-(se tiver + de 1, separe por vírgula)--")
-            print("|")
 
             if upd.upper()=="T":
                 movie = register()
+                movie['code'] = filme
 
-                #Atribuindo novo valor de chave
-                new_key = movie['code']
-                del films_dict[filme]
-
-                films_dict[new_key] = movie
-
-                # Armazenando no Banco
-                arqFilmes = open('database/movies_db.dat', 'wb')
-                pickle.dump(films_dict, arqFilmes)
-                arqFilmes.close()
+                return movie
 
             elif upd in films_dict[filme].keys():
+                print("|-(se tiver + de 1, separe por vírgula)--")
+                print("|")
 
                 print(f"New {upd}: ", end="")
                 if upd!="duration":
@@ -119,20 +120,13 @@ def update_film(films_dict):
 
                 films_dict[filme][upd] = val
 
-                if upd=="title":
-                    new_key = films_dict[filme]
-                    del films_dict[filme]
-                    films_dict[val] = new_key
-
-                # Armazenando no Banco
-                arqFilmes = open('database/movies_db.dat', 'wb')
-                pickle.dump(films_dict, arqFilmes)
-                arqFilmes.close()
+                movie = films_dict[filme]
+                return movie
 
             else:
-                print("Update Cancelado!")
+                print("\n => Update Cancelado!")
         else:
-            print("Update Cancelado! (ou não tem filmes com esse título)")
+            print("\n => Update Cancelado! (ou não tem filmes com esse título)")
         input("Tecle ENTER para continuar...\n\n")
 
 """"""
@@ -145,9 +139,8 @@ def delete_film(films_dict):
         # Printa as opções de filmes
         print("\n########################")
         print("Qual filme quer deletar:")
-        print("........................")
+        print("........................", end="")
         opcoes(films_dict)
-        print("\n========================")
 
         option = input("[Dgt o título] -> ").upper()
         del films_dict[option]
@@ -168,22 +161,24 @@ def see_all(films_dict):
 
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
-        for fkey in (films_dict):
-            print(f"\n\n#### • Filme: {films_dict[fkey]['code']} • ####\n")
+
+        keys = films_dict.values()
+        for fk in (keys):
+            print(f"\n== • Filme: {(fk['title']).upper()} • ==\n")
 
             print("GÊNERO(s): \n•", end="")
-            for gnr in films_dict[fkey]['genre']:
+            for gnr in fk['genre']:
                 print("", gnr, end=" -")
             print()
-            print("DIRETOR(es): \n•", end="")
-            for dir in films_dict[fkey]['director']:
+            print("DIRETOR(es):", end="")
+            for dir in fk['director']:
                 print("", dir, end=" -")
 
-            print("\nDATA DE LANÇAMENTO: ", films_dict[fkey]["release"])
-            print("CLASSIF. INDICATIVA: ",  films_dict[fkey]["class_ind"])
+            print("\nDATA DE LANÇAMENTO: ", fk["release"])
+            print("CLASSIF. INDICATIVA: ",  fk["class_ind"])
 
-            hora    = (films_dict[fkey]["duration"])//60
-            minutos = (films_dict[fkey]["duration"])%60
+            hora    = (fk["duration"])//60
+            minutos = (fk["duration"])%60
             print(f"DURAÇÃO: {hora}h {minutos}min\n--------------------------")
 
         input("Tecle ENTER para continuar...\n\n")
