@@ -68,8 +68,13 @@ def filmes():
         opt = int(input("Resposta => "))
 
         if opt==1:
-            movie = movies.register(films_dict)
-            
+            movie = movies.register()
+            films_dict[(movie['code'])] = movie
+
+            # Armazenando no Banco
+            arqFilmes = open('database/movies_db.dat', 'wb')
+            pickle.dump(films_dict, arqFilmes)
+            arqFilmes.close()
 
         elif opt==2:
             movies.search(films_dict)
@@ -106,7 +111,14 @@ def clientes():
         elif opt==2:
             clients.search(clients_dict)
         elif opt==3:
-            clients.update_client(clients_dict)
+            client = clients.update_client(clients_dict)
+            clients_dict[(client['cpf'])] = client
+            
+            # Armazenando no Banco
+            arqClientes = open('database/clients_db.dat', 'wb')
+            pickle.dump(clients_dict, arqClientes)
+            arqClientes.close()
+
         elif opt==4:
             clients.delete_client(clients_dict)
         elif opt==5:
@@ -154,8 +166,15 @@ def relatorios():
     print("\n== Aqui está o relatório ==")
     print("==== De Todo o CINEMA =====")
 
-    print(films_dict)
-    print(clients_dict)
+    print("\n########################")
+    print("======== FILMES ========")
+    print("########################")
+    movies.see_all(films_dict)
+
+    print("\n##########################")
+    print("======== CLIENTES ========")
+    print("##########################")
+    clients.see_all(clients_dict)
 
     print("...........................")
     print()
@@ -170,7 +189,7 @@ def home():
     print("\t# [1] - Aba Filmes            ")
     print("\t# [2] - Comprar Ingressos     ")
     print("\t# [3] - Aba Clientes          ")
-#   print("\t# [5] - Relatórios            ")
+    print("\t# [5] - Relatórios            ")
     print("\t  (0) - Sair                  ")
     print("\t  (S) - Sobre                 ")
     print("\t------------------------------")

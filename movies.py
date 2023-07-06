@@ -25,7 +25,7 @@ def tem_filme(films_dict):
 """"""
 # CADASTRAR Filmes
 """"""
-def register(films_dict):
+def register():
     print("\n#######################################")
     print("|-(se tiver + de 1, separe por vírgula)--")
     print("|")
@@ -49,14 +49,7 @@ def register(films_dict):
         "class_ind": class_ind,
         "duration":  duration
         }
-    
-    
-    films_dict[(movie['code'])] = movie
-
-    # Armazenando no Banco
-    arqFilmes = open('database/movies_db.dat', 'wb')
-    pickle.dump(films_dict, arqFilmes)
-    arqFilmes.close()
+    return movie
 
 """"""
 # BUSCAR
@@ -103,26 +96,13 @@ def update_film(films_dict):
             print("|")
 
             if upd.upper()=="T":
-                title     = input("| TÍTULO do filme: ")
-                genre     = input("| GÊNERO(s): ")
-                director  = input("| DIRETOR(es): ")
-                release   = input("| DATA de Lançamento: ")
-                class_ind = input("| Classificação Indicativa: ")
-                duration  = int(input("| Duração (em min): "))
+                movie = register()
 
-                genres = genre.split(", ")
-                directors = director.split(", ")
+                #Atribuindo novo valor de chave
+                new_key = movie['code']
+                del films_dict[filme]
 
-                movie = {
-                    'code':      title.upper(),
-                    "title":     title,
-                    "genre":     genres,
-                    "director":  directors,
-                    "release":   release,
-                    "class_ind": class_ind,
-                    "duration":  duration
-                    }
-                films_dict[filme] = movie
+                films_dict[new_key] = movie
 
                 # Armazenando no Banco
                 arqFilmes = open('database/movies_db.dat', 'wb')
@@ -159,7 +139,6 @@ def update_film(films_dict):
 # REMOVER
 """"""
 def delete_film(films_dict):
-    # (verificar se é admin)
 
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
@@ -170,10 +149,10 @@ def delete_film(films_dict):
         opcoes(films_dict)
         print("\n========================")
 
-        option = input("-> ").upper()
+        option = input("[Dgt o título] -> ").upper()
         del films_dict[option]
 
-        # Armazenando no Banco
+        # "Deletando" do Banco
         arqFilmes = open('database/movies_db.dat', 'wb')
         pickle.dump(films_dict, arqFilmes)
         arqFilmes.close()
@@ -190,7 +169,7 @@ def see_all(films_dict):
     ha_filme = tem_filme(films_dict)
     if (ha_filme):
         for fkey in (films_dict):
-            print(f"\n\n#### • Filme: {(films_dict[fkey]['title']).upper()} • ####\n")
+            print(f"\n\n#### • Filme: {films_dict[fkey]['code']} • ####\n")
 
             print("GÊNERO(s): \n•", end="")
             for gnr in films_dict[fkey]['genre']:

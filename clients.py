@@ -1,4 +1,5 @@
 #--------------------------------
+import library.check_cpf as check
 
 # Verfica se tem clientes
 def tem_client(clients_dict):
@@ -23,11 +24,22 @@ def register():
 
     name = input("| NOME: ")
     age  = input("| IDADE: ")
-    cpf  = input("| CPF: ")
+    tel  = input("| TELEFONE: ")
+
+    invalid = True
+    while invalid:
+        cpf  = input("| CPF: ")
+
+        if (check.validar_cpf(cpf)):
+            print("CPF Válido!... ")
+            invalid = False
+        else:
+            print("CPF INVÁLIDO!")
 
     client = {
         "name": name,
         "age":  age,
+        "phone": tel,
         'cpf': cpf,
     }
     
@@ -68,7 +80,8 @@ def update_client(clients_dict):
 
         print(f"... Atualizando {cliente} ...")
         atualiza = register()
-        clients_dict[cliente] = atualiza
+
+        return atualiza
 
 
 """"""
@@ -79,8 +92,9 @@ def see_all(clients_dict):
     for ckey in clients_dict:
         print("\n----=== - CLIENTE  - ===----")
         print()
-        print("NOME: ",  clients_dict[ckey]["name"])
-        print("IDADE: ", clients_dict[ckey]["age"])
-        print("CPF: ",   clients_dict[ckey]["cpf"])
-    print("___________________________")
+        print("NOME: ",     clients_dict[ckey]["name"])
+        print("IDADE: ",    clients_dict[ckey]["age"])
+        print("TELEFONE: ", clients_dict[ckey]["phone"])
+        print("CPF: ",      clients_dict[ckey]["cpf"])
+    print("\n")
     input("Tecle ENTER para continuar...\n\n")
