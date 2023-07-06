@@ -1,5 +1,5 @@
 # Projeto PyCine
-
+![](https://static.vecteezy.com/system/resources/previews/010/973/641/original/movie-poster-cinema-banner-with-popcorn-soda-clapperboard-glowing-cinema-banner-illustration-vector.jpg)
 O projeto desenvolvido em Python é um sistema de gerenciamento para um cinema local, que busca automatizar e digitalizar os processos relacionados à administração do estabelecimento. Através deste programa, é possível realizar operações básicas de CRUD (criação, leitura, atualização e exclusão) para diferentes entidades, como filmes, clientes, usuários (administradores e funcionários comuns) e ingressos. O objetivo principal é fornecer um controle eficiente e preciso das atividades que ocorrem no cinema, permitindo que a equipe tenha uma visão abrangente e organizada das informações. Além disso, o sistema também visa atender aos requisitos acadêmicos, servindo como uma avaliação para a disciplina de faculdade.
 
 ## Funcionalidades
