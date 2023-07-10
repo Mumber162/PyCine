@@ -31,28 +31,30 @@ def buy(clients_dict, films_dict, tickets_dict):
         movies.see_all(films_dict)
         print("-------------------------")
 
-        opt   = input("Qual filme você quer? ")
+        opt   = input("Qual filme você quer (dgt o CÓDIGO): ").upper()
 
         # Associar AQUI
+        movie = films_dict[opt]
 
         date  = input("Data da sessão: ")
         time  = input("Hora da sessão: ")
         seat  = input("Qual assento (poltrona): ")
         sess  = input("Qual sessão/sala (Dgt: 1, 2,... n): ")
-        price = float(input("Qual o preço do ingresso? R$ "))
+        price = float(input('(formato "X.XX") Qual o preço do ingresso? R$ '))
 
         round_price = format(price, ".2f")
         code = seat+"S"+sess
 
-        print("\nPara qual cliente? ")
         clients.see_all(clients_dict)
-        client    = input("cliente -> ")
+        print("\n[Dgt o CPF] Para qual cliente? ")
+        cpf_client    = input(" -> ")
 
         # Associar AQUI
+        client = clients_dict[cpf_client]
 
         ticket = {
             'code': code.upper(),
-            'movie': opt,
+            'movie': movie,
             'date': date,
             'time': time,
             'client': client,
@@ -125,9 +127,10 @@ def see_all(tickets_dict):
     ha_ingresso = tem_ingresso(tickets_dict)
     if (ha_ingresso):
         for chave in tickets_dict.keys():
-            print(f"\n====== INGRESSO DE - {tickets_dict[chave]['client']} - ======")
+            print(f"\n====== INGRESSO DE - {tickets_dict[chave]['client']['name']} - ======")
             print(f'Poltrona "{tickets_dict[chave]["code"]}": ')
-            print(f"• {tickets_dict[chave]['movie']}")
+            print(f"• {tickets_dict[chave]['movie']['title']}")
             print(f"• {tickets_dict[chave]['date']} às {tickets_dict[chave]['time']}")
+            print(f"(Custo): R$ {tickets_dict[chave]['price']}")
             print("-----------------------\n\n")
             input("Tecle ENTER para continuar...\n\n")

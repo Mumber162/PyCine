@@ -164,7 +164,7 @@ def see_all(films_dict):
 
         keys = films_dict.values()
         for fk in (keys):
-            print(f"\n== • Filme: {(fk['title']).upper()} • ==\n")
+            print(f"\n== • Filme [{fk['code']}]: {(fk['title']).upper()} • ==\n")
 
             print("GÊNERO(s): \n•", end="")
             for gnr in fk['genre']:
