@@ -1,5 +1,6 @@
 #--------------------------------
 import library.check_cpf as check
+import pickle
 
 # Verfica se tem clientes
 def tem_client(clients_dict):
@@ -82,6 +83,28 @@ def update_client(clients_dict):
         atualiza = register()
 
         return atualiza
+
+
+""""""
+# REMOVER
+""""""
+def delete_client(clients_dict):
+
+    ha_cliente = tem_client(clients_dict)
+    if (ha_cliente):
+        # Printa as opções de filmes
+        see_all(clients_dict)
+        option = input("Qual cliente quer deletar? [dgt o CPF]:")
+
+        del clients_dict[option]
+
+        # "Deletando" do Banco
+        arqClients = open('database/clients_db.dat', 'wb')
+        pickle.dump(clients_dict, arqClients)
+        arqClients.close()
+
+        print("= Cliente Deletado com Sucesso!")
+        input("Tecle ENTER para continuar...\n\n")
 
 
 """"""
